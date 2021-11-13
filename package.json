@@ -1,18 +1,19 @@
 {
-	"name": "refurbish-manager",
+	"name": "openrct2-refurbish-manager",
 	"version": "1.0.0",
 	"description": "OpenRCT2 plugin to manage refurbishing rides",
-	"main": "dist/index.js",
 	"scripts": {
-		"build": "tsc",
+		"build": "rollup -c rollup.config.develop.js",
 		"prettier": "prettier --write ./src/*"
 	},
-	"author": "",
+	"author": "MilesWells",
 	"license": "ISC",
-	"dependencies": {
-		"typescript": "^4.4.4"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"prettier": "^2.4.1"
+		"@rollup/plugin-typescript": "^8.3.0",
+		"prettier": "^2.4.1",
+		"rollup": "^2.60.0",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.4"
 	}
 }
