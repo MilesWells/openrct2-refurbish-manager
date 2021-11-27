@@ -1,45 +1,5 @@
-import { ACTION } from './constants';
-
-enum RideStatus {
-	CLOSED,
-	OPEN,
-	TESTING,
-	SIMULATING,
-}
-
-function rideSetStatus(ride: Ride, status: RideStatus) {
-	context.executeAction(
-		'ridesetstatus',
-		{
-			ride: ride.id,
-			status,
-		},
-		() => {}
-	);
-}
-
-const closeRide = (ride: Ride) => rideSetStatus(ride, RideStatus.CLOSED);
-const openRide = (ride: Ride) => rideSetStatus(ride, RideStatus.OPEN);
-
-function closeAndEmptyRide(ride: Ride) {
-	closeRide(ride);
-	closeRide(ride);
-}
-
-function repairRide(ride: Ride) {
-	closeAndEmptyRide(ride);
-
-	context.executeAction(
-		'ridedemolish',
-		{
-			ride: ride.id,
-			modifyType: 1,
-		},
-		() => {}
-	);
-
-	openRide(ride);
-}
+import { UI_CLASSIFICATION } from './constants';
+import windowDesc from './uiWIndow';
 
 registerPlugin({
 	name: 'refurbish-manager',
@@ -49,14 +9,12 @@ registerPlugin({
 	licence: 'ISC',
 	targetApiVersion: 34,
 	main: () => {
-		// context.registerAction(
-		// 	ACTION,
-		// 	() => ({}),
-		// 	() => ({})
-		// );
-
-		for (const ride of map.rides) {
-			repairRide(ride);
+		if (typeof ui !== 'undefined') {
+			ui.registerMenuItem('Refurbish Manager', () => {
+				const window = ui.getWindow(UI_CLASSIFICATION);
+				if (window) window.bringToFront();
+				else ui.openWindow(windowDesc);
+			});
 		}
 	},
 });

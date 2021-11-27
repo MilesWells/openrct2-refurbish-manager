@@ -1,1 +1,1 @@
-export const ACTION = 'refurbish-manager-action';
+export const UI_CLASSIFICATION = 'refurbish-manager';
